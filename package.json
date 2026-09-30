@@ -1,0 +1,32 @@
+{
+  "$schema": "./package.schema.json",
+  "name": "agent-ru-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
+    "@prisma/client": "^5.20.0",
+    "googleapis": "^144.0.0",
+    "next": "^15.5.4",
+    "openai": "^4.68.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prisma": "^5.20.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.2"
+  }
+}

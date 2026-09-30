@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model UserGoogleToken {
+  userId       String    @id
+  email        String
+  accessToken  String
+  refreshToken String
+  scopes       String
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("user_google_tokens")
+}
+
+model StagedAction {
+  id          String   @id @default(uuid())
+  userId      String
+  actionType  String   // "create_meeting" | "cancel_meeting" | "send_email" | "add_contact"
+  payloadJson String
+  isConfirmed Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@map("staged_actions")
+}
+
+model ScheduledEmail {
+  id        String    @id @default(uuid())
+  userId    String
+  toEmail   String
+  subject   String
+  body      String
+  sendAt    DateTime
+  sentAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([sendAt, sentAt])
+  @@map("scheduled_emails")
+}
+
+model Contact {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String   // Full name, e.g. "manoj kumar rath"
+  alias     String?  // Spoken nickname or shorthand, e.g. "manoj", "tech lead"
+  email     String   // iammanojkumarrath@gmail.com
+  role      String?  // Optional role/title, e.g. "Frontend Engineer"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, email])
+  @@index([userId, alias])
+  @@map("contacts")
+}
